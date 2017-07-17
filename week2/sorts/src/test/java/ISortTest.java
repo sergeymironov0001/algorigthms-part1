@@ -11,6 +11,9 @@ import static org.junit.Assert.assertTrue;
 public class ISortTest {
     private static final int CHECKS_COUNT = 50;
     private static final Random random = new Random();
+    private static final int ARRAY_LENGTH = 100;
+    private static final int MIN_VALUE = -100;
+    private static final int MAX_VALUE = 100;
     private ISort<Integer> sort;
 
     @Before
@@ -23,7 +26,7 @@ public class ISortTest {
     public void sortMethodSortsRandomArrayCorrectly() throws Exception {
         Integer[] array;
         for (int i = 0; i < CHECKS_COUNT; i++) {
-            array = generateRandomArray(100, -100, 100);
+            array = generateRandomArray(ARRAY_LENGTH, MIN_VALUE, MAX_VALUE);
             sort.sort(array);
             assertTrue(String.format("Arrays is not sorted: %s", Arrays.toString(array)), isArraySorted(array));
         }
@@ -33,7 +36,7 @@ public class ISortTest {
     public void sortMethodSortsAlreadySortedArrayCorrectly() throws Exception {
         Integer[] array;
         for (int i = 0; i < CHECKS_COUNT; i++) {
-            array = generateRandomArray(100, -100, 100);
+            array = generateRandomArray(ARRAY_LENGTH, MIN_VALUE, MAX_VALUE);
             Arrays.sort(array);
             sort.sort(array);
             assertTrue(isArraySorted(array));
@@ -50,7 +53,7 @@ public class ISortTest {
             }
         };
         for (int i = 0; i < CHECKS_COUNT; i++) {
-            array = generateRandomArray(100, -100, 100);
+            array = generateRandomArray(ARRAY_LENGTH, MIN_VALUE, MAX_VALUE);
             Arrays.sort(array, reverseComparator);
             sort.sort(array);
             assertTrue(isArraySorted(array));
