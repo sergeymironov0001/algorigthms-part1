@@ -1,3 +1,4 @@
 include "week1:percolation"
 include 'week2:deques-and-randomized-queues'
+include 'week2:sorts'
 
