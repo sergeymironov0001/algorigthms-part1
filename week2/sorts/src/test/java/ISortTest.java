@@ -19,7 +19,8 @@ public class ISortTest {
     @Before
     public void init() {
 //        sort = new SelectionSort<>();
-        sort = new InsertionSort<>();
+//        sort = new InsertionSort<>();
+        sort = new ShellSort<>();
     }
 
     @Test
