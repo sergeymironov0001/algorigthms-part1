@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 public class ISortTest {
     private static final int CHECKS_COUNT = 50;
     private static final Random random = new Random();
-    private static final int ARRAY_LENGTH = 100;
+    private static final int ARRAY_LENGTH = 10;
     private static final int MIN_VALUE = -100;
     private static final int MAX_VALUE = 100;
     private ISort<Integer> sort;
@@ -20,7 +20,8 @@ public class ISortTest {
     public void init() {
 //        sort = new SelectionSort<>();
 //        sort = new InsertionSort<>();
-        sort = new ShellSort<>();
+//        sort = new ShellSort<>();
+        sort = new MergeSort<>();
     }
 
     @Test
