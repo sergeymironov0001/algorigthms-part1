@@ -21,7 +21,8 @@ public class ISortTest {
 //        sort = new SelectionSort<>();
 //        sort = new InsertionSort<>();
 //        sort = new ShellSort<>();
-        sort = new MergeSort<>();
+//        sort = new MergeSort<>();
+        sort = new MergeSortNonRecursive<>();
     }
 
     @Test
