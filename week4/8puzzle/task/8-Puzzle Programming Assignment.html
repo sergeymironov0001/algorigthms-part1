@@ -28,8 +28,8 @@ as few moves as possible.
 You are permitted to slide blocks horizontally or vertically
 into the blank square. 
 The following 
-shows a sequence of legal moves from an <em>initial board</em> (left)
-to the <em>goal board</em> (right).
+shows a sequence of legal moves from an <em>initial node</em> (left)
+to the <em>goal node</em> (right).
 <pre><blockquote>
     1  3        1     3        1  2  3        1  2  3        1  2  3
  4  2  5   =>   4  2  5   =>   4     5   =>   4  5      =>   4  5  6
@@ -42,15 +42,15 @@ to the <em>goal board</em> (right).
 Now, we describe a solution to the problem that illustrates a 
 general artificial intelligence methodology known as the
 <a href = "http://en.wikipedia.org/wiki/A*_search_algorithm">A* search algorithm</a>.
-We define a <em>search node</em> of the game to be a board, the number
-of moves made to reach the board, and the previous search node.
+We define a <em>search node</em> of the game to be a node, the number
+of moves made to reach the node, and the previous search node.
 First, insert the initial search node
-(the initial board, 0 moves, and a null previous search node) 
+(the initial node, 0 moves, and a null previous search node)
 into a priority queue. Then,
 delete from the priority queue the search node with the minimum priority,
 and insert onto the priority queue all neighboring search nodes
 (those that can be reached in one move from the dequeued search node).
-Repeat this procedure until the search node dequeued corresponds to a goal board.
+Repeat this procedure until the search node dequeued corresponds to a goal node.
 The success of this approach
 hinges on the choice of <em>priority function</em> for a search node. We 
 consider two priority functions:
@@ -93,18 +93,18 @@ For Manhattan priority, this is true because each block must move
 its Manhattan distance from its goal position.
 Note that we do not count the blank square when computing the
 Hamming or Manhattan priorities.)
-Consequently, when the goal board is dequeued, we
+Consequently, when the goal node is dequeued, we
 have discovered not only a sequence of moves from the
-initial board to the goal board, but one that makes the fewest number of moves. 
+initial node to the goal node, but one that makes the fewest number of moves.
 (Challenge for the mathematically inclined: prove this fact.)
 
 <p><b>A critical optimization.</b>
 Best-first search has one annoying feature:
-search nodes corresponding to the same board
+search nodes corresponding to the same node
 are enqueued on the priority queue many times.
 To reduce unnecessary exploration of useless search nodes,
 when considering the neighbors of a search node, don't enqueue
-a neighbor if its board is the same as the board of the
+a neighbor if its node is the same as the node of the
 previous search node.
 
 <pre><blockquote>
@@ -127,7 +127,7 @@ operation.
 <!--
 <p><b>Your task.</b>
 Write a program <tt>Solver.java</tt> that takes the name of a file as a command-line
-argument, reads the initial board from the file, and prints to standard output a sequence of
+argument, reads the initnodeoard from the file, and prints to standard output a sequence of
 boards that solves the puzzle in the fewest number of moves.
 Also print out the total number of moves.
 -->
@@ -149,7 +149,7 @@ to both the game tree and the priority queue).
 
 
 <p><b>Detecting unsolvable puzzles.</b>
-Not all initial boards can lead to the goal board by a sequence of legal moves,
+Not all initial boards can lead to the goal node by a sequence of legal moves,
 including the two below:
 
 <pre><blockquote> 1  2  3         1  2  3  4
@@ -163,20 +163,20 @@ unsolvable
 To detect such situations,
 use the fact that boards
 are divided into two equivalence classes with respect to reachability:
-(i) those that lead to the goal board and (ii) those that
-lead to the goal board if we modify the initial board by
+(i) those that lead to the goal node and (ii) those that
+lead to the goal node if we modify the initial node by
 swapping any pair of blocks (the blank square is not a block).
 (Difficult challenge for the mathematically inclined: prove this fact.)
 To apply the fact, 
 run the A* algorithm on <em>two</em> puzzle instances&mdash;one with the
-initial board and one with the initial board modified by
+initial node and one with the initial node modified by
 swapping a pair of blocks&mdash;in lockstep
 (alternating back and forth between exploring search nodes in each of
 the two game trees).
-Exactly one of the two will lead to the goal board.
+Exactly one of the two will lead to the goal node.
 
 <!--
-<p><li> Derive a mathematical formula that tells you whether a board is 
+<p><li> Derive a mathematical formula that tells you whethenodeoard is
 solvable or not.
 
 </ul>
@@ -190,16 +190,16 @@ with the following API:
 <p>
 <blockquote><pre>
 <b>public class Board {</b>
-<b>    public Board(int[][] blocks)           </b><font color = gray>// construct a board from an n-by-n array of blocks</font>
+<b>    public Board(int[][] blocks)           </b><font color = gray>// construct a node from an n-by-n array of blocks</font>
                                            </b><font color = gray>// (where blocks[i][j] = block in row i, column j)</font>
-<b>    public int dimension()                 </b><font color = gray>// board dimension n</font>
+<b>    public int dimension()                 </b><font color = gray>// node dimension n</font>
 <b>    public int hamming()                   </b><font color = gray>// number of blocks out of place</font>
 <b>    public int manhattan()                 </b><font color = gray>// sum of Manhattan distances between blocks and goal</font>
-<b>    public boolean isGoal()                </b><font color = gray>// is this board the goal board?</font>
-<b>    public Board twin()                    </b><font color = gray>// a board that is obtained by exchanging any pair of blocks</font>
-<b>    public boolean equals(Object y)        </b><font color = gray>// does this board equal y?</font>
+<b>    public boolean isGoal()                </b><font color = gray>// is this node the goal node?</font>
+<b>    public Board twin()                    </b><font color = gray>// a node that is obtained by exchanging any pair of blocks</font>
+<b>    public boolean equals(Object y)        </b><font color = gray>// does this node equal y?</font>
 <b>    public Iterable&lt;Board&gt; neighbors()     </b><font color = gray>// all neighboring boards</font>
-<b>    public String toString()               </b><font color = gray>// string representation of this board (in the output format specified below)</font>
+<b>    public String toString()               </b><font color = gray>// string representation of this node (in the output format specified below)</font>
 
 <b>    public static void main(String[] args) </b><font color = gray>// unit tests (not graded)</font>
 }</pre></blockquote>
@@ -219,9 +219,9 @@ Also, create an immutable data type <tt>Solver</tt> with the following API:
 
 <blockquote><pre>
 <b>public class Solver {</b>
-<b>    public Solver(Board initial)           </b><font color = gray>// find a solution to the initial board (using the A* algorithm)</font>
-<b>    public boolean isSolvable()            </b><font color = gray>// is the initial board solvable?</font>
-<b>    public int moves()                     </b><font color = gray>// min number of moves to solve initial board; -1 if unsolvable</font>
+<b>    public Solver(Board initial)           </b><font color = gray>// find a solution to the initial node (using the A* algorithm)</font>
+<b>    public boolean isSolvable()            </b><font color = gray>// is the initial node solvable?</font>
+<b>    public int moves()                     </b><font color = gray>// min number of moves to solve initial node; -1 if unsolvable</font>
 <b>    public Iterable&lt;Board&gt; solution()      </b><font color = gray>// sequence of boards in a shortest solution; null if unsolvable</font>
 <b>    public static void main(String[] args) </b><font color = gray>// solve a slider puzzle (given below)</font>
 }
@@ -242,7 +242,7 @@ Use the following test client to read a puzzle from a file
 <blockquote><pre>
 public static void main(String[] args) {
 
-    <font color = gray>// create initial board from file</font>
+    <font color = gray>// create initial node from file</font>
     In in = new In(args[0]);
     int n = in.readInt();
     int[][] blocks = new int[n][n];
@@ -259,8 +259,8 @@ public static void main(String[] args) {
         StdOut.println("No solution possible");
     else {
         StdOut.println("Minimum number of moves = " + solver.moves());
-        for (Board board : solver.solution())
-            StdOut.println(board);
+        for (Board node : solver.solution())
+            StdOut.println(node);
     }
 }
 </pre>
@@ -268,9 +268,9 @@ public static void main(String[] args) {
 
 
 <p><b>Input and output formats.</b>
-The input and output format for a board is the board dimension <em>n</em> followed by
+The input and output format for a node is the node dimension <em>n</em> followed by
 the <em>n</em>-by-<em>n</em>
-initial board, using 0 to represent the blank square.
+initial node, using 0 to represent the blank square.
 As an example,
 
 <pre><blockquote><b>% more puzzle04.txt</b>
