@@ -119,27 +119,6 @@ public class Board {
         return copy;
     }
 
-    //    /**
-//     * Does this board equal y?
-//     *
-//     * @param y
-//     * @return
-//     */
-//    public boolean equals(Object y) {
-//        if (y == null) return false;
-//        if (!this.getClass().equals(y.getClass())) return false;
-//        Board board = (Board) y;
-//        if (dimension != board.dimension) {
-//            return false;
-//        }
-//
-//        for (int i = 0; i < blocks.length; i++) {
-//            if (!Arrays.equals(blocks[i], board.blocks[i])) {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -149,9 +128,7 @@ public class Board {
 
         if (dimension != board.dimension) return false;
         for (int i = 0; i < dimension; i++) {
-            for (int j = 0; j < dimension; j++) {
-                if (blocks[i][j] != board.blocks[i][j]) return false;
-            }
+            if (!Arrays.equals(blocks[i], board.blocks[i])) return false;
         }
         return true;
     }
