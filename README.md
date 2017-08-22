@@ -1,5 +1,5 @@
 # algorigthms-part1
-The project contains solutions for all programming assignment of the
+The project contains solutions for all programming assignments of the
 [Algorithms, Part I](https://www.coursera.org/learn/algorithms-part1/home/welcome) course.
 
 
