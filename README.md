@@ -11,7 +11,7 @@ root
 └---week#-dir
      |
      └---name-of-the-programming-assignment-of-the-week#
-         └---libs       - libs which was used in a solution
+         └---libs       - libs which were used in a solution
          └---result     - result *.jar which contains sources of a solution
          └---src        - sources of a solution
          └---task       - description of a task
