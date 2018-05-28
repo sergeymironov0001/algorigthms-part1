@@ -1,4 +1,4 @@
-group 'com.sergeymironov0001.coursera.algorigthms-part1'
+group 'com.sergeymironov0001.coursera.algorithms-part1'
 version '1.0-SNAPSHOT'
 
 subprojects {
